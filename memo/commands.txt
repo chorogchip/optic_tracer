@@ -1,0 +1,13 @@
+
+<option>
+-intr : go to interactive mode
+
+<input file>
+
+<output file>
+
+<scene structure>
+
+<rendering>
+
+<performance>
