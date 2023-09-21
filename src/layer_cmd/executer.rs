@@ -1,5 +1,7 @@
 
-use super::{parser::{self, EnumCommands}, interactive_interface, options};
+use crate::layer_option::options;
+use super::parser;
+use super::interactive_interface;
 
 pub fn execute_cmds(input: parser::CommandInput) -> options::Options {
     let mut options = options::Options::new();
@@ -7,8 +9,8 @@ pub fn execute_cmds(input: parser::CommandInput) -> options::Options {
 
     for arg in input.args {
         match arg {
-            EnumCommands::Interactive => is_interactive_mode_enabled = true,
-            EnumCommands::String(_str) => (),
+            parser::EnumCommands::Interactive => is_interactive_mode_enabled = true,
+            parser::EnumCommands::String(_str) => (),
         }
     }
 

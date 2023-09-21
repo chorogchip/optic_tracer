@@ -1,6 +1,7 @@
 
 use std::io;
-use super::options;
+use crate::layer_option::options;
+use crate::layer_option::errors;
 
 fn read_int() -> i64 {
     let mut buf = String::new();
@@ -30,7 +31,7 @@ pub fn execute_interactive(options: &mut options::Options) {
     
         match(read_int()) {
             7 => {
-                options.add_serious_error(options::SeriousErrors::ExplicitExit(
+                options.errors.add_serious_error(errors::SeriousErrors::ExplicitExit(
                     String::from("exit typed on interactive mod")));
             },
             _ => (),

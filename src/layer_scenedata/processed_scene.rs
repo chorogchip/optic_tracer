@@ -1,7 +1,7 @@
 
 
-use crate::layer_inputdata::input_scene::InputScene;
-use crate::layer_cmd::options::Options;
+use crate::layer_inputdata::input_scene;
+use crate::layer_option::options;
 
 pub struct ProcessedScene {
 
@@ -10,6 +10,6 @@ pub struct ProcessedScene {
 impl ProcessedScene {
 }
 
-pub fn process_scene(input_data: InputScene, options: &Options) -> ProcessedScene {
+pub fn process_scene(input_data: input_scene::InputScene, options: &options::Options) -> ProcessedScene {
     return ProcessedScene{ };
 }

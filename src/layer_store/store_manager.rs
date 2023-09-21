@@ -1,5 +1,5 @@
 
-use crate::layer_cmd::options::Options;
+use crate::layer_option::options::Options;
 use crate::layer_outputdata::output_data::OutputData;
 
 pub struct StoreResult {

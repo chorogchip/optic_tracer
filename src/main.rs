@@ -1,6 +1,7 @@
 
 pub mod layer_math;
 
+pub mod layer_option;
 pub mod layer_cmd;
 pub mod layer_render;
 pub mod layer_inputdata;
@@ -12,8 +13,9 @@ fn main() {
     let parsed_cmds = layer_cmd::parser::parse_input();
     let options = layer_cmd::executer::execute_cmds(parsed_cmds);
 
-    if (options.has_serious_errors()) {
+    if options.errors.has_serious_errors() {
         println!("asdasd");
+        return;
     }
 
     let input_scene = layer_inputdata::input_scene::read_scene(&options);
