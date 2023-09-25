@@ -6,13 +6,8 @@ use crate::layer_option::errors;
 
 fn read_int() -> i64 {
     let mut buf = String::new();
-    loop {
-        io::stdin().read_line(&mut buf).expect("failed to read line");
-        let input_int:i64 = buf.trim().parse().expect("please input an integer");
-        if input_int >= 1 && input_int <= 7 {
-            break input_int;
-        }
-    }
+    io::stdin().read_line(&mut buf).expect("failed to read line");
+    return buf.trim().parse().unwrap_or(-1);
 }
 
 fn flush_output() {
@@ -37,8 +32,9 @@ pub fn execute_interactive(options: &mut options::Options) {
 6) complete and execute!
 7) exit and cancel execution
 >> ");
+
         flush_output();
-    
+        
         match read_int() {
             1 => execute_interactive_input_file(options),
             2 => execute_interactive_output_file(options),
@@ -46,7 +42,7 @@ pub fn execute_interactive(options: &mut options::Options) {
             4 => execute_interactive_rendering(options),
             5 => execute_interactive_performance(options),
             6 => {
-                print!("Completed interactive mod and Starting to Execute!\n");
+                print!("> Completed interactive mod and Starting to Execute!\n");
                 break;
             }
             7 => {
@@ -60,7 +56,7 @@ pub fn execute_interactive(options: &mut options::Options) {
 
 }
 
-fn execute_interactive_input_file(options : &mut options::Options) {
+fn execute_interactive_input_file(_options : &mut options::Options) {
 
     loop {
 
@@ -78,7 +74,7 @@ fn execute_interactive_input_file(options : &mut options::Options) {
     }
 }
 
-fn execute_interactive_output_file(options : &mut options::Options) {
+fn execute_interactive_output_file(_options : &mut options::Options) {
     loop {
 
         print!(
@@ -95,7 +91,7 @@ fn execute_interactive_output_file(options : &mut options::Options) {
     }
 }
 
-fn execute_interactive_scene_structure(options : &mut options::Options) {
+fn execute_interactive_scene_structure(_options : &mut options::Options) {
     loop {
 
         print!(
@@ -112,7 +108,7 @@ fn execute_interactive_scene_structure(options : &mut options::Options) {
     }
 }
 
-fn execute_interactive_rendering(options : &mut options::Options) {
+fn execute_interactive_rendering(_options : &mut options::Options) {
     loop {
 
         print!(
@@ -129,7 +125,7 @@ fn execute_interactive_rendering(options : &mut options::Options) {
     }
 }
 
-fn execute_interactive_performance(options : &mut options::Options) {
+fn execute_interactive_performance(_options : &mut options::Options) {
     loop {
 
         print!(
