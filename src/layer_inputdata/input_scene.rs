@@ -9,5 +9,9 @@ impl InputScene {
 }
 
 pub fn read_scene(options: &options::Options) -> InputScene {
-    return InputScene{ };
+    if options.errors.has_serious_errors() {
+        return InputScene{};
+    }
+
+    InputScene{ }
 }

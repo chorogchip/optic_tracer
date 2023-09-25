@@ -10,6 +10,9 @@ pub struct ProcessedScene {
 impl ProcessedScene {
 }
 
-pub fn process_scene(input_data: input_scene::InputScene, options: &options::Options) -> ProcessedScene {
+pub fn process_scene(_input_data: input_scene::InputScene, options: &mut options::Options) -> ProcessedScene {
+    if options.errors.has_serious_errors() {
+        return ProcessedScene{ };
+    }
     return ProcessedScene{ };
 }

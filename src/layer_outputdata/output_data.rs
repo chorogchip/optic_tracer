@@ -10,6 +10,9 @@ impl OutputData {
 
 }
 
-pub fn process_output(raw_data: output_raw_data::OutputRawData, options: &options::Options) -> OutputData {
+pub fn process_output(_raw_data: output_raw_data::OutputRawData, options: &mut options::Options) -> OutputData {
+    if options.errors.has_serious_errors() {
+        return OutputData{};
+    }
     return OutputData{ };
 }

@@ -15,6 +15,9 @@ impl Errors {
     pub fn has_serious_errors(&self) -> bool {
         self.serious_errors.len() > 0
     }
+    pub fn has_trivial_errors(&self) -> bool {
+        self.trivial_errors.len() > 0
+    }
     pub fn add_serious_error(&mut self, error: SeriousErrors) {
         self.serious_errors.push(error);
     }
@@ -34,6 +37,6 @@ pub enum SeriousErrors {
 }
 
 pub enum TrivialErrors {
-
+    // in store manager, have to add match arm
 }
 

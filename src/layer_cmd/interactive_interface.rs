@@ -1,5 +1,6 @@
 
 use std::io;
+use std::io::Write;
 use crate::layer_option::options;
 use crate::layer_option::errors;
 
@@ -16,11 +17,12 @@ fn read_int() -> i64 {
 
 pub fn execute_interactive(options: &mut options::Options) {
 
+    print!("entered interactive mode\n");
+
     loop {
 
-        println!(
-"entered interactive mode
-1) input file option
+        print!(
+"1) input file option
 2) output file option
 3) scene structure option
 4) rendering option
@@ -28,11 +30,16 @@ pub fn execute_interactive(options: &mut options::Options) {
 6) complete and execute!
 7) exit
 >> ");
+        
+        if let Err(error) = io::stdout().flush() {
+            println!("flush error:{error}");
+        }
     
-        match(read_int()) {
+        match read_int() {
             7 => {
                 options.errors.add_serious_error(errors::SeriousErrors::ExplicitExit(
                     String::from("exit typed on interactive mod")));
+                break;
             },
             _ => (),
         }

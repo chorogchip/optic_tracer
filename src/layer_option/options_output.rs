@@ -1,6 +1,6 @@
 
 pub struct OptionsOutput {
-    file_for_log: String,
+    pub file_for_log: String,
 }
 
 impl OptionsOutput {
