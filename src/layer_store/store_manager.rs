@@ -28,7 +28,7 @@ pub fn store_data(_output_data: OutputData, options: &mut options::Options) -> S
         let error_vec = options.errors.get_serious_error_vec();
         let error_cnt = error_vec.len();
 
-        ret.message.push_str(&format!("Error - there were {error_cnt} serious errors.\n    Errors :\n"));
+        ret.message.push_str(&format!("Error: there were {error_cnt} serious errors.\n    Errors :\n"));
         for err in error_vec {
             ret.message.push_str(&match err {
                 SeriousErrors::ExplicitExit(str) => format!("    - Explicit Exit {{{str}}}\n"),
