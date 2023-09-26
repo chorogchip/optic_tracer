@@ -1,7 +1,6 @@
 
 use std::io;
 use std::io::Write;
-use std::str::FromStr;
 use crate::layer_option::options;
 use crate::layer_option::errors;
 
@@ -11,11 +10,12 @@ fn flush_output() {
     }
 }
 
-fn read_val<T: FromStr>(error_val: T) -> T {
+/*
+fn read_val<T: std::str::FromStr>(error_val: T) -> T {
     let mut buf = String::new();
     io::stdin().read_line(&mut buf).expect("failed to read line");
     return buf.trim().parse().unwrap_or(error_val);
-}
+}*/
 
 fn read_string() -> String {
     let mut buf = String::new();
@@ -23,16 +23,34 @@ fn read_string() -> String {
     return String::from(buf.trim());
 }
 
-fn get_val<T: FromStr>(message: &str, error_val: T) -> T {
-    print!("{}>> ", message);
-    flush_output();
-    return read_val(error_val);
+fn get_val<T: std::str::FromStr + std::cmp::PartialOrd>(message: &str, min: T, max:T) -> T {
+    loop {
+        print!("{}>> ", message);
+        flush_output();
+        let mut buf = String::new();
+        io::stdin().read_line(&mut buf).expect("failed to read line");
+        if let Ok(num) = buf.trim().parse() {
+            if min <= num && num <= max {
+                return num;
+            }
+        }
+        print!("Wrong Input\n");
+    }
 }
 
-fn get_strnig(message: &str) -> String {
+fn get_string(message: &str) -> String {
     print!("{}>> ", message);
     flush_output();
     return read_string();
+}
+
+fn get_enum<T: std::str::FromStr>(message: &str) -> T {
+    loop {
+        if let Ok(en) = T::from_str(get_string(message).trim()) {
+            return en;
+        }
+        print!("Wrong Input\n");
+    }
 }
 
 pub fn execute_interactive(options: &mut options::Options) {
@@ -48,7 +66,7 @@ pub fn execute_interactive(options: &mut options::Options) {
 5) performance option
 6) complete and execute!
 7) exit and cancel execution
-", -1) {
+", 1, 7) {
         1 => execute_interactive_input_file(options),
         2 => execute_interactive_output_file(options),
         3 => execute_interactive_scene_structure(options),
@@ -72,7 +90,7 @@ fn execute_interactive_input_file(_options : &mut options::Options) {
     loop {  match get_val(
 "\n- Input File Options -
 0) go back
-", -1) {
+", 0, 0) {
         0 => break,
         _ => print!("Wrong input\n"),
     }}
@@ -84,11 +102,21 @@ fn execute_interactive_output_file(options : &mut options::Options) {
 "\n- Output File Options -
 0) go back
 1) view output file options
-2) file for log
-", -1) {
+2) log file name
+3) log file type
+4) image file name
+5) image file type
+6) image width
+7) image height
+", 0, 7) {
         0 => break,
         1 => print!("- View Output File Options -\n{}", options.options_output.to_string()),
-        2 => options.options_output.file_for_log = get_strnig("Input filename to store image "),
+        2 => options.options_output.log_file_name = get_string("Input file name to store log "),
+        3 => options.options_output.log_file_type = get_enum("Input file type to store log "),
+        4 => options.options_output.image_file_name = get_string("Input file name to store image "),
+        5 => options.options_output.image_file_type = get_enum("Input file type to store image "),
+        6 => options.options_output.height = get_val("Input image width ", 1, 32767),
+        7 => options.options_output.width = get_val("Input image height ", 1, 32767),
         _ => print!("Wrong input\n"),
     }}
 }
@@ -98,7 +126,7 @@ fn execute_interactive_scene_structure(_options : &mut options::Options) {
     loop { match get_val(
 "\n- Scene Structure Options -
 0) go back
-", -1) {
+", 0, 0) {
         0 => break,
         _ => print!("Wrong input\n"),
     }}
@@ -109,7 +137,7 @@ fn execute_interactive_rendering(_options : &mut options::Options) {
     loop { match get_val(
 "\n- Rendering Options -
 0) go back
-", -1) {
+", 0, 0) {
         0 => break,
         _ => print!("Wrong input\n"),
     }}
@@ -120,7 +148,7 @@ fn execute_interactive_performance(_options : &mut options::Options) {
     loop { match get_val(
 "\n- Performance Options -
 0) go back
-", -1) {
+", 0, 0) {
         0 => break,
         _ => print!("Wrong input\n"),
     }}
